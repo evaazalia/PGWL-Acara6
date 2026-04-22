@@ -27,6 +27,37 @@
 
 @section('content')
     <div id="map"></div>
+
+    {{-- Tentang Button --}}
+    <button class="btn btn-info" id="btnTentang" style="position: fixed; top: 10px; right: 20px; z-index: 1000;">
+        Tentang
+    </button>
+
+    {{-- modal tentang --}}
+    <div class="modal" tabindex="-1" id="modalTentang">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tentang</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Nama:</strong></label>
+                        <p>Eva Azalia</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nim" class="form-label"><strong>NIM:</strong></label>
+                        <input type="text" class="form-control" id="nim" name="nim" value="24/535987/SV/24538" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{-- modal input point --}}
     <div class="modal" tabindex="-1" id="modalInputPoint">
         <div class="modal-dialog">
@@ -35,26 +66,27 @@
                     <h5 class="modal-title">Input Point</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{route('point.store')}}" method="post">
+                <form action="{{ route('point.store') }}" method="post">
                     @csrf
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Fill name">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Fill name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" placeholder="Fill description" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="geometry_point" class="form-label">Geometry</label>
+                            <textarea class="form-control" id="geometry_point" name="geometry_point" rows="3"></textarea>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control" id="description" name="description" placeholder="Fill description" rows="3"></textarea>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
-                    <div class="mb-3">
-                        <label for="geometry_point" class="form-label">Geometry</label>
-                        <textarea class="form-control" id="geometry_point" name="geometry_point" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
                 </form>
             </div>
         </div>
@@ -68,26 +100,27 @@
                     <h5 class="modal-title">Input Polyline</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{route('polyline.store')}}" method="post">
+                <form action="{{ route('polyline.store') }}" method="post">
                     @csrf
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Fill name">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Fill name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" placeholder="Fill description" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="geometry_polyline" class="form-label">Geometry</label>
+                            <textarea class="form-control" id="geometry_polyline" name="geometry_polyline" rows="3"></textarea>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control" id="description" name="description" placeholder="Fill description" rows="3"></textarea>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
-                    <div class="mb-3">
-                        <label for="geometry_polyline" class="form-label">Geometry</label>
-                        <textarea class="form-control" id="geometry_polyline" name="geometry_polyline" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
                 </form>
             </div>
         </div>
@@ -101,26 +134,27 @@
                     <h5 class="modal-title">Input Polygon</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{route('polygon.store')}}" method="post">
+                <form action="{{ route('polygon.store') }}" method="post">
                     @csrf
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Fill name">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Fill name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" placeholder="Fill description" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="geometry_polygon" class="form-label">Geometry</label>
+                            <textarea class="form-control" id="geometry_polygon" name="geometry_polygon" rows="3"></textarea>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control" id="description" name="description" placeholder="Fill description" rows="3"></textarea>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
-                    <div class="mb-3">
-                        <label for="geometry_polygon" class="form-label">Geometry</label>
-                        <textarea class="form-control" id="geometry_polygon" name="geometry_polygon" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
                 </form>
             </div>
         </div>
@@ -141,6 +175,12 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <script>
+        // Handle Tentang button click
+        document.getElementById('btnTentang').addEventListener('click', function() {
+            var tentangModal = new bootstrap.Modal(document.getElementById('modalTentang'));
+            tentangModal.show();
+        });
+
         // initialize map centered on Yogyakarta
         var map = L.map('map').setView([-7.795580, 110.369490], 12);
 
@@ -225,5 +265,88 @@
 
             drawnItems.addLayer(layer);
         });
+
+        // GeoJSON Point
+        var points = L.geoJSON(null, {
+            // Style
+
+            // onEachFeature
+            onEachFeature: function(feature, layer) {
+                // variable popup content
+                var popup_content = "Nama: " + feature.properties.name + "<br>" + "Deskripsi: " + feature
+                    .properties.description + "<br>" + "Dibuat: " + feature.properties.created_at;
+
+                layer.on({
+                    click: function(e) {
+                        points.bindPopup(popup_content);
+                    },
+                });
+            },
+        });
+
+        $.getJSON("{{ route('points.geojson') }}", function(data) {
+            points.addData(data); // Menambahkan data ke dalam GeoJSON Point Sarana Prasarana
+            map.addLayer(points); // Menambahkan GeoJSON Point Sarana Prasarana ke dalam peta
+        });
+
+        // GeoJSON Polyline
+        var polylines = L.geoJSON(null, {
+            // Style
+
+            // onEachFeature
+            onEachFeature: function(feature, layer) {
+                // variable popup content
+                var popup_content = "Nama: " + feature.properties.name + "<br>" + "Deskripsi: " + feature
+                    .properties.description + "<br>" + "Dibuat: " + feature.properties.created_at;
+
+                layer.on({
+                    click: function(e) {
+                        polylines.bindPopup(popup_content);
+                    },
+                });
+            },
+        });
+
+        $.getJSON("{{ route('polylines.geojson') }}", function(data) {
+            polylines.addData(data); // Menambahkan data ke dalam GeoJSON Point Sarana Prasarana
+            map.addLayer(polylines); // Menambahkan GeoJSON Point Sarana Prasarana ke dalam peta
+        });
+
+        // GeoJSON Polygons
+        var polygons = L.geoJSON(null, {
+            // Style
+
+            // onEachFeature
+            onEachFeature: function(feature, layer) {
+                // variable popup content
+                var popup_content = "Nama: " + feature.properties.name + "<br>" + "Deskripsi: " + feature
+                    .properties.description + "<br>" + "Dibuat: " + feature.properties.created_at;
+
+                layer.on({
+                    click: function(e) {
+                        polygons.bindPopup(popup_content);
+                    },
+                });
+            },
+        });
+
+        $.getJSON("{{ route('polygons.geojson') }}", function(data) {
+            polygons.addData(data); // Menambahkan data ke dalam GeoJSON Point Sarana Prasarana
+            map.addLayer(polygons); // Menambahkan GeoJSON Point Sarana Prasarana ke dalam peta
+        });
+
+        // Control Layer
+        var baseMaps = {
+
+        };
+
+        var overlayMaps = {
+            "Points": points,
+            "Polyline": polylines,
+            "Polygon": polygons,
+        };
+
+        var controllayer = L.control.layers(baseMaps, overlayMaps);
+        controllayer.addTo(map);
     </script>
 @endsection
