@@ -39,6 +39,7 @@ class polygonsController extends Controller
                 'geometry_polygon' => 'required',
                 'name' => 'required|string|max:255',
                 'description' => 'required|string',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             ],
             [
                 'geometry_polygon.required'=> 'Fielad geometry polygon harus diisi.',
@@ -47,17 +48,35 @@ class polygonsController extends Controller
                 'name.max'=> 'Field nama tidak boleh lebih dari 255 karakter.',
                 'description.required'=> 'Field deskripsi harus diisi.',
                 'description.string'=> 'Field deskripsi harus berupa string.',
+                'image.image'=> 'File harus berupa file gambar.',
+                'image.mimes'=> 'File gambar harus berupa file dengan ekstensi jpeg, png, atau jpg.',
+                'image.max'=> 'Ukuran file gambar tidak boleh lebih dari 2MB.',
             ]
         );
+
+        //membuat direktori image apabila belum tersedia
+        if (!is_dir('storage/images')) {
+            mkdir('./storage/images', 0777);
+            }
+
+        // simpan file image ke direktori storage/images dan menyimpan nama file ke database
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name_image = time() . "_polygon." . strtolower($image->getClientOriginalExtension());
+            $image->move('storage/images', $name_image);
+            } else {
+                $name_image = null;
+                }
 
         $data = [
             'geom' => $request->geometry_polygon,
             'name' => $request->name,
             'description' => $request->description,
+            'image' => $name_image,
         ];
 
         // simpan data ke database dan akan menampilkan pesan error apabila gagal menyimpan data point
-        if (!$this->polygons->insert($data)) {
+        if (!$this->polygons->create($data)) {
             return redirect()->route('peta')->with('error', 'Gagal menyimpan data polygon.');
         }
 
